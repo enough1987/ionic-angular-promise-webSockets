@@ -33,7 +33,17 @@ app.factory('WebSocketServ', function($q, $rootScope) {
 
     return new Promise(function(resolve, reject) {
 
-      socket.send(id);
+      try {
+        socket.send(id);
+      } catch (e){
+        
+        console.log(e);
+        var socket = new WebSocket(url);
+        setTimeout(function () {
+          socket.send(id);
+        }, 500);
+
+      }
 
       socket.onopen = function() {
         console.log("Socket has been opened!");
@@ -46,7 +56,7 @@ app.factory('WebSocketServ', function($q, $rootScope) {
           console.log('Connection is failed');
         }
         console.log('Code: ' + event.code + ' Reason: ' + event.reason);
-        var socket = new WebSocket(url);
+        socket = new WebSocket(url);
       };
 
       socket.onmessage = function(event) {
