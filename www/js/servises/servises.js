@@ -35,9 +35,8 @@ app.factory('WebSocketServ', function($q, $rootScope) {
 
       try {
         socket.send(id);
-      } catch (e){
-        
-        console.log(e);
+      } catch (e){    
+        //console.log(e);
         var socket = new WebSocket(url);
         setTimeout(function () {
           socket.send(id);
